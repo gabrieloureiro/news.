@@ -1,11 +1,15 @@
 import * as C from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { BiCommentDetail } from "react-icons/bi";
+import { AiFillStar } from "react-icons/ai";
 
 type ChannelCardProps = {
   id: string;
   title: string;
   description: string;
   messagesAmount?: number;
+  isRankingCard?: boolean;
+  rating?: number;
 };
 
 export const ChannelCard: React.FC<ChannelCardProps> = ({
@@ -13,6 +17,8 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
   title,
   description,
   messagesAmount = 0,
+  isRankingCard = false,
+  rating,
 }) => {
   const { push } = useRouter();
 
@@ -33,7 +39,36 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
       _hover={{
         bg: "gray.600",
       }}
+      position="relative"
     >
+      <C.Flex position="absolute" right={isRankingCard ? "80px" : "16px"}>
+        <C.Text
+          mr="8px"
+          as="span"
+          fontSize={["12px", "16px"]}
+          lineHeight={["20px", "24px"]}
+        >
+          {messagesAmount}
+        </C.Text>
+        <C.Icon as={BiCommentDetail} w="24px" h="24px" />
+      </C.Flex>
+
+      {isRankingCard && (
+        <C.Flex position="absolute" right="16px">
+          <C.Text
+            mr="8px"
+            as="span"
+            fontSize={["12px", "16px"]}
+            lineHeight={["20px", "24px"]}
+            color="yellow.400"
+            fontWeight="600"
+          >
+            {rating}
+          </C.Text>
+          <C.Icon as={AiFillStar} w="24px" h="24px" color="yellow.400" />
+        </C.Flex>
+      )}
+
       <C.Text
         as="h3"
         fontWeight="600"

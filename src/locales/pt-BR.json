@@ -7,6 +7,10 @@
   "page.home.title": "news",
   "page.home.description": "Aplicação de notícias",
 
+  "page.home.button.add-channel": "Adicionar canal",
+  "page.home.button.manage-users": "Gerenciar usuários",
+
+  "page.home.filter.title": "Lista de canais",
   "page.home.filter.option.all": "Todos",
   "page.home.filter.option.subbed": "Inscritos",
   "page.home.filter.option.most-commented": "Mais comentados",

@@ -24,7 +24,13 @@ export const FilterHeader: React.VFC<FilterHeaderProps> = ({
   const { formatMessage } = useIntl();
 
   return (
-    <C.Flex>
+    <C.Flex
+      sx={{
+        "@media (max-width: 420px)": {
+          flexDirection: "column",
+        },
+      }}
+    >
       <Title title={title} />
       <C.InputGroup>
         <C.Input
@@ -37,10 +43,11 @@ export const FilterHeader: React.VFC<FilterHeaderProps> = ({
         <C.InputRightElement children={<FiSearch color="white" />} />
       </C.InputGroup>
       <C.Select
-        ml="12px"
+        ml={["0", "12px"]}
+        my={["24px", "0"]}
         border="none"
         background="gray.700"
-        maxWidth={["40px", "118px"]}
+        maxWidth={["100%", "118px"]}
         cursor="pointer"
         value={currentFilterOption}
         onChange={(e) => setCurrentFilterOption(e.target.value)}
