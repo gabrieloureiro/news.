@@ -1,0 +1,14 @@
+{
+  "header.select.option.portuguese": "PT-BR",
+  "header.select.option.english": "EN",
+
+  "filter.search.placeholder": "Buscar",
+
+  "page.home.title": "news",
+  "page.home.description": "Aplicação de notícias",
+
+  "page.home.filter.option.all": "Todos",
+  "page.home.filter.option.subbed": "Inscritos",
+  "page.home.filter.option.most-commented": "Mais comentados",
+  "page.home.filter.option.less-commented": "Menos comentados"
+}
