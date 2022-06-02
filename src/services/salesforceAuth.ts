@@ -15,6 +15,9 @@ export async function salesforceAuth() {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods":
+          "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
       },
     }
   );
