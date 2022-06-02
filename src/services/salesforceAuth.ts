@@ -1,6 +1,5 @@
 import axios from "axios";
 import qs from "qs";
-import jsforce from "jsforce";
 
 export async function salesforceAuth() {
   const { data } = await axios.post(
