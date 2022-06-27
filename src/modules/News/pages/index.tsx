@@ -6,12 +6,12 @@ import * as C from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CONTAINER_ANIMATION } from "animations";
-import { ChannelCard, FilterHeader, Title } from "modules/Home/components";
+import { ChannelCard, FilterHeader, Title } from "modules/News/components";
 import { useSalesforceAuth } from "hooks/use-salesforce-auth";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
-export const Home: React.VFC = () => {
+export const News: React.VFC = () => {
   const { formatMessage } = useIntl();
   const [isCustomMedia] = C.useMediaQuery("(min-width: 1160px)");
   const [currentFilterOption, setCurrentFilterOption] = useState("all");
@@ -40,12 +40,6 @@ export const Home: React.VFC = () => {
     searchTerm: inputValue,
     option: currentFilterOption,
   };
-
-  const { data } = useSalesforceAuth();
-
-  useEffect(() => {
-    console.log(data);
-  }, []);
 
   return (
     <Layout

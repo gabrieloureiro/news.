@@ -2,7 +2,7 @@ import * as C from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useIntl } from "react-intl";
-import { Title } from "modules/Home/components";
+import { Title } from "modules/News/components";
 
 type FilterHeaderProps = {
   title: string;
