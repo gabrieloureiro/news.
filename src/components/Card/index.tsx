@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import * as C from "@chakra-ui/react";
 
-import { useMediaQuery } from "hooks/use-media-query";
+import { useMediaQuery } from "utils/hooks";
 import { CARDS_ANIMATION, TRANSITION } from "animations";
 
 import { Transition, Variants } from "framer-motion";

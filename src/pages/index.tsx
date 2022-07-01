@@ -1,17 +1,14 @@
 import { Layout } from "components";
-import { useMediaQuery } from "hooks/use-media-query";
 import { useIntl } from "react-intl";
-
 import * as C from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTAINER_ANIMATION } from "animations";
 import { ChannelCard, FilterHeader, Title } from "components";
-import { useSalesforceAuth } from "hooks/use-salesforce-auth";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
-export const News: React.VFC = () => {
+const Home: React.VFC = () => {
   const { formatMessage } = useIntl();
   const [currentFilterOption, setCurrentFilterOption] = useState("all");
   const [inputValue, setInputValue] = useState("");
@@ -136,3 +133,5 @@ export const News: React.VFC = () => {
     </Layout>
   );
 };
+
+export default Home;
