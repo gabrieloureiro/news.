@@ -1,6 +1,6 @@
-import { skeletonColors } from "utils/skeleton-colors";
+import { skeletonColors } from "styles/skeleton-colors";
 import * as C from "@chakra-ui/react";
-import { useMediaQuery } from "hooks/use-media-query";
+import { useMediaQuery } from "utils/hooks";
 
 const SkeletonCard: React.VFC<C.BoxProps> = ({
   maxW = "350px",

@@ -1,6 +1,6 @@
 import * as C from "@chakra-ui/react";
 
-export const Title: React.VFC<{ title: string }> = ({ title }) => {
+const Title: React.VFC<{ title: string }> = ({ title }) => {
   return (
     <C.Text
       minW="150px"
@@ -15,3 +15,5 @@ export const Title: React.VFC<{ title: string }> = ({ title }) => {
     </C.Text>
   );
 };
+
+export default Title;

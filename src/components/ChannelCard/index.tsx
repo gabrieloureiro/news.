@@ -12,7 +12,7 @@ type ChannelCardProps = {
   rating?: number;
 };
 
-export const ChannelCard: React.FC<ChannelCardProps> = ({
+const ChannelCard: React.FC<ChannelCardProps> = ({
   id,
   title,
   description,
@@ -90,3 +90,5 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
     </C.Flex>
   );
 };
+
+export default ChannelCard;

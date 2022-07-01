@@ -2,7 +2,7 @@ import * as C from "@chakra-ui/react";
 import { Dispatch, SetStateAction } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useIntl } from "react-intl";
-import { Title } from "modules/News/components";
+import { Title } from "components";
 
 type FilterHeaderProps = {
   title: string;
@@ -13,7 +13,7 @@ type FilterHeaderProps = {
   setInputValue: Dispatch<SetStateAction<string>>;
 };
 
-export const FilterHeader: React.VFC<FilterHeaderProps> = ({
+const FilterHeader: React.VFC<FilterHeaderProps> = ({
   title,
   options,
   currentFilterOption,
@@ -63,3 +63,5 @@ export const FilterHeader: React.VFC<FilterHeaderProps> = ({
     </C.Flex>
   );
 };
+
+export default FilterHeader;

@@ -1,3 +1,2 @@
-export * from "./news-channel";
-export * from "./news-user";
-export * from "./user-subscription";
+export * from "./channel";
+export * from "./news";

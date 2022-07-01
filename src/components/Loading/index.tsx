@@ -1,5 +1,5 @@
 import * as C from "@chakra-ui/react";
-import { skeletonColors } from "utils/skeleton-colors";
+import { skeletonColors } from "styles/skeleton-colors";
 
 const Loading: React.VFC = () => {
   return (
