@@ -1,4 +1,4 @@
-import { MAX_AGE } from "constants/index";
+import { MAX_AGE } from "@constants";
 import { useRouter } from "next/router";
 import { setCookie, parseCookies } from "nookies";
 import {

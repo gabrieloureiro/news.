@@ -1,4 +1,4 @@
-import { CHANNEL_CONSTANTS } from "constants/index";
+import { CHANNEL_CONSTANTS } from "@constants";
 import { useMutation, UseMutationResult } from "react-query";
 import { createNews } from "services";
 import { queryClient } from "services/queryClient";

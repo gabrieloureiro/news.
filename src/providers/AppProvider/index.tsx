@@ -1,4 +1,4 @@
-import { LanguageProvider } from "context";
+import { AuthProvider, LanguageProvider } from "context";
 import { IntlProvider, ChakraProvider, QueryClientProvider } from "providers";
 
 export const AppProvider: React.FC = ({ children }) => {
@@ -6,7 +6,9 @@ export const AppProvider: React.FC = ({ children }) => {
     <LanguageProvider>
       <QueryClientProvider>
         <IntlProvider>
-          <ChakraProvider>{children}</ChakraProvider>
+          <AuthProvider>
+            <ChakraProvider>{children}</ChakraProvider>
+          </AuthProvider>
         </IntlProvider>
       </QueryClientProvider>
     </LanguageProvider>

@@ -4,6 +4,18 @@
 
   "filter.search.placeholder": "Buscar",
 
+  "page.login.title": "Faça seu login",
+  "page.login.title.business": "Entre e acompanhe as novidades que estão em alta",
+  "page.login.form.label.email": "E-mail",
+  "page.login.form.error.email": "E-mail inválido",
+  "page.login.form.error.required.email": "O campo e-mail é obrigatório",
+  "page.login.form.label.password": "Senha",
+  "page.login.form.error.required.password": "O campo senha é obrigatório",
+  "page.login.form.link.forget-password": "Esqueceu sua senha? Clique aqui.",
+  "page.login.form.button.submit": "Entrar",
+  "page.login.label.without-account": "Ainda não tem conta?",
+  "page.login.link.sign-up": "Cadastre-se",
+
   "page.home.title": "news",
   "page.home.description": "Aplicação de notícias",
 

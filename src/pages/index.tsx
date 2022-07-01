@@ -5,6 +5,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTAINER_ANIMATION } from "animations";
 import { ChannelCard, FilterHeader, Title } from "components";
+import { withSSRAuth } from "utils/auth/withSSRAuth";
+import { ROLES } from "@constants";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
@@ -135,3 +137,14 @@ const Home: React.VFC = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = withSSRAuth(
+  async () => {
+    return {
+      props: {},
+    };
+  },
+  {
+    roles: [ROLES.ADMIN, ROLES.CONSUMER, ROLES.CREATOR],
+  }
+);
