@@ -51,6 +51,7 @@ type AuthContextInterface = {
   signUp(credentials: SignUpCredentials): Promise<void>;
   signUpFormSchema: yup.ObjectSchema<any, any>;
   isAuthenticated: boolean;
+  signOut(): void;
 };
 
 const AuthContext = createContext({} as AuthContextInterface);
@@ -145,7 +146,6 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     name,
     email,
     password,
-    password_confirmation,
   }) => {
     try {
       const { status } = await apiClient.post<SignUpCredentials>("/users", {
@@ -195,6 +195,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         signInFormSchema,
         signUp,
         signUpFormSchema,
+        signOut,
       }}
     >
       {children}

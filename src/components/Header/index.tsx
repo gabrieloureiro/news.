@@ -1,7 +1,8 @@
 import * as C from "@chakra-ui/react";
 import { BsGlobe } from "react-icons/bs";
+import { RiLogoutBoxRFill } from "react-icons/ri";
 import { CARDS_ANIMATION, TRANSITION } from "animations";
-import { useLanguage } from "context";
+import { useAuth, useLanguage } from "context";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import { LOCALE } from "locales";
@@ -12,6 +13,7 @@ const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 const Header: React.VFC = () => {
   const { formatMessage } = useIntl();
   const { currentLocale, handleChangeLocale } = useLanguage();
+  const { signOut } = useAuth();
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
     handleChangeLocale(event.target.value);
@@ -45,22 +47,27 @@ const Header: React.VFC = () => {
           .
         </C.Text>
       </C.Text>
-      <C.Select
-        ml="12px"
-        color="white"
-        icon={<BsGlobe color="white" />}
-        maxWidth={["40px", "155px"]}
-        cursor="pointer"
-        value={currentLocale}
-        onChange={(event) => onChange(event)}
-      >
-        <option value={LOCALE.PT_BR}>
-          {formatMessage({ id: "header.select.option.portuguese" })}
-        </option>
-        <option value={LOCALE.EN_US}>
-          {formatMessage({ id: "header.select.option.english" })}
-        </option>
-      </C.Select>
+      <C.Flex>
+        <C.Select
+          ml="12px"
+          color="white"
+          icon={<BsGlobe color="white" />}
+          maxWidth={["40px", "155px"]}
+          cursor="pointer"
+          value={currentLocale}
+          onChange={(event) => onChange(event)}
+        >
+          <option value={LOCALE.PT_BR}>
+            {formatMessage({ id: "header.select.option.portuguese" })}
+          </option>
+          <option value={LOCALE.EN_US}>
+            {formatMessage({ id: "header.select.option.english" })}
+          </option>
+        </C.Select>
+        <C.Button variant="ghost" ml="12px" onClick={signOut}>
+          <C.Icon as={RiLogoutBoxRFill} w="16px" h="16px" color="red.400" />
+        </C.Button>
+      </C.Flex>
     </MotionFlex>
   );
 };
