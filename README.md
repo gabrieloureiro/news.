@@ -48,6 +48,7 @@
 
 ## About The Project
 
+
 ### Built With
 
 - [React](https://reactjs.org/)
@@ -56,7 +57,6 @@
 - [Chakra-UI](https://chakra-ui.com/)
 - [Nookies](https://github.com/maticzav/nookies)
 - [Framer Motion](https://www.framer.com/api/motion/)
-- [Recharts](https://recharts.org/en-US)
 - [React Query](https://react-query.tanstack.com/)
 
 - [ESLint](https:///)
@@ -64,12 +64,9 @@
 - [EditorConfig](https://)
 
 <!-- GETTING STARTED -->
-
-## Please don't forget to accept the application access your location.
-
 ## Getting Started
 
-If you do not want to run the project in the development environment, you can access it at [DEMO](https://news..vercel.app/).
+If you do not want to run the project in the development environment, you can access it at [DEMO](https://news-theta-ten.vercel.app/).
 
 ### Prerequisites
 
@@ -78,7 +75,7 @@ You need to install:
 - node
 
   ```sh
-   nvm use 16.0.0
+   nvm use 17.0.0
   ```
 
 - yarn
@@ -96,15 +93,12 @@ You need to install:
    ```sh
    yarn install --production=false
    ```
-3. Run the command
+3. Run the command (with the node server running)
    ```JS
-   yarn dev:mock
+   yarn dev
    ```
 
 ##
-
-## Please don't forget to accept the application access your location.
-
 <!-- CONTACT -->
 
 ## Contact
