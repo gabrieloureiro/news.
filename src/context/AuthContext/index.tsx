@@ -154,7 +154,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         password,
       });
 
-      if (status === 200) {
+      if (status === 201) {
         if (isAuthenticated || !!authenticatedUser) {
           signOut();
         }
