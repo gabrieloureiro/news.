@@ -16,6 +16,22 @@
   "page.login.label.without-account": "Ainda não tem conta?",
   "page.login.link.sign-up": "Cadastre-se",
 
+  "page.signup.title": "Crie sua conta",
+  "page.signup.title.business": "Crie sua conta para acompanhar as novidades!!!",
+  "page.signup.form.label.name": "Nome",
+  "page.signup.form.error.required.name": "Nome obrigatório",
+  "page.signup.form.label.email": "E-mail",
+  "page.signup.form.label.password": "Senha",
+  "page.signup.form.label.password_confirmation": "Confirmar senha",
+  "page.signup.form.button.submit": "Cadastrar",
+  "page.signup.form.error.required.email": "E-mail obrigatório",
+  "page.signup.form.error.email": "E-mail inválido",
+  "page.signup.form.error.required.password": "Senha obrigatória",
+  "page.signup.form.error.min.password": "A senha deve conter no mínimo 6 caracteres",
+  "page.signup.form.error.max.password": "A senha deve conter no máximo 20 caracteres",
+  "page.signup.form.error.required.password_confirmation": "Confirme a senha",
+  "page.signup.form.error.password_confirmation": "As senhas devem ser iguais",
+
   "page.home.title": "news",
   "page.home.description": "Aplicação de notícias",
 

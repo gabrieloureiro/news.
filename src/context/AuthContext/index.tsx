@@ -12,7 +12,6 @@ import * as yup from "yup";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import decode from "jwt-decode";
-// import { REQUEST_STATUS } from "@/constants/api";
 import { Role } from "types";
 import { MAX_AGE } from "@constants";
 
@@ -34,12 +33,12 @@ type AuthLoginApiResponse = {
   token: string;
 };
 
-// export type SignUpCredentials extends Omit<SignInCredentials, "username"> = {
-//   email: string;
-//   name: string;
-//   last_name: string;
-//   password_confirmation: string;
-// }
+export type SignUpCredentials = {
+  email: string;
+  name: string;
+  password: string;
+  password_confirmation: string;
+};
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -49,8 +48,8 @@ type AuthContextInterface = {
   authenticatedUser: AuthenticatedUser;
   signIn(credentials: SignInCredentials): Promise<void>;
   signInFormSchema: yup.ObjectSchema<any, any>;
-  // signUp(credentials: SignUpCredentials): Promise<void>;
-  // signUpFormSchema: yup.ObjectSchema<any, any>;
+  signUp(credentials: SignUpCredentials): Promise<void>;
+  signUpFormSchema: yup.ObjectSchema<any, any>;
   isAuthenticated: boolean;
 };
 
@@ -83,41 +82,33 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       ),
   });
 
-  // const signUpFormSchema = yup.object().shape({
-  //   name: yup
-  //     .string()
-  //     .required(formatMessage({ id: "page.sign-up.form.error.required.name" })),
-  //   last_name: yup
-  //     .string()
-  //     .required(
-  //       formatMessage({ id: "page.sign-up.form.error.required.last_name" })
-  //     ),
-  //   email: yup
-  //     .string()
-  //     .required(formatMessage({ id: "page.sign-up.form.error.required.email" }))
-  //     .email(formatMessage({ id: "page.sign-up.form.error.email" })),
-  //   password: yup
-  //     .string()
-  //     .required(
-  //       formatMessage({ id: "page.sign-up.form.error.required.password" })
-  //     )
-  //     .min(6, formatMessage({ id: "page.sign-up.form.error.min.password" }))
-  //     .max(20, formatMessage({ id: "page.sign-up.form.error.max.password" })),
-  //   password_confirmation: yup
-  //     .string()
-  //     .required(
-  //       formatMessage({
-  //         id: "page.sign-up.form.error.required.password_confirmation",
-  //       })
-  //     )
-  //     .oneOf(
-  //       [null, yup.ref("password")],
-  //       formatMessage({ id: "page.sign-up.form.error.password_confirmation" })
-  //     ),
-  //   terms: yup
-  //     .boolean()
-  //     .oneOf([true], formatMessage({ id: "page.sign-up.form.error.terms" })),
-  // });
+  const signUpFormSchema = yup.object().shape({
+    name: yup
+      .string()
+      .required(formatMessage({ id: "page.signup.form.error.required.name" })),
+    email: yup
+      .string()
+      .required(formatMessage({ id: "page.signup.form.error.required.email" }))
+      .email(formatMessage({ id: "page.signup.form.error.email" })),
+    password: yup
+      .string()
+      .required(
+        formatMessage({ id: "page.signup.form.error.required.password" })
+      )
+      .min(6, formatMessage({ id: "page.signup.form.error.min.password" }))
+      .max(20, formatMessage({ id: "page.signup.form.error.max.password" })),
+    password_confirmation: yup
+      .string()
+      .required(
+        formatMessage({
+          id: "page.signup.form.error.required.password_confirmation",
+        })
+      )
+      .oneOf(
+        [null, yup.ref("password")],
+        formatMessage({ id: "page.signup.form.error.password_confirmation" })
+      ),
+  });
 
   const signIn: SubmitHandler<SignInCredentials> = async ({
     email,
@@ -150,28 +141,29 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     }
   };
 
-  // const signUp: SubmitHandler<SignUpCredentials> = async ({
-  //   name,
-  //   last_name,
-  //   email,
-  //   password,
-  // }) => {
-  //   try {
-  //     const { status } = await api.post<SignUpCredentials>("/users", {
-  //       name,
-  //       last_name,
-  //       email,
-  //       password,
-  //     });
+  const signUp: SubmitHandler<SignUpCredentials> = async ({
+    name,
+    email,
+    password,
+    password_confirmation,
+  }) => {
+    try {
+      const { status } = await apiClient.post<SignUpCredentials>("/users", {
+        name,
+        email,
+        password,
+      });
 
-  //     if (status === REQUEST_STATUS.SUCCESS) {
-  //       signOut();
-  //       Router.push("/login");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      if (status === 200) {
+        if (isAuthenticated || !!authenticatedUser) {
+          signOut();
+        }
+        Router.push("/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (access_token && !authenticatedUser) {
@@ -201,6 +193,8 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         authenticatedUser,
         signIn,
         signInFormSchema,
+        signUp,
+        signUpFormSchema,
       }}
     >
       {children}
