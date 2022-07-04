@@ -48,8 +48,6 @@
 
 ## About The Project
 
-![image](https://user-images.githubusercontent.com/39869298/154817478-1d3793f7-ec06-42f9-91bf-986a81d6c4a0.png)
-
 ### Built With
 
 - [React](https://reactjs.org/)
