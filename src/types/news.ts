@@ -1,7 +1,16 @@
 export type NewsPayload = {
   message: string;
-  hasImage: false;
-  image_path: string | null;
-  user_id: string;
-  channel_id: string;
+};
+
+export type NewsQueryParams = {
+  userId: string;
+  channelId: string;
+};
+
+export type UpdateLikesPayload = {
+  id: number;
+};
+
+export type UpdateLikesQueryParams = {
+  userId: string;
 };

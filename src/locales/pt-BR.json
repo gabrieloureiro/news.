@@ -2,6 +2,8 @@
   "header.select.option.portuguese": "PT-BR",
   "header.select.option.english": "EN",
 
+  "loading": "Carregando...",
+
   "filter.search.placeholder": "Buscar",
 
   "page.login.title": "Faça seu login",
@@ -34,6 +36,8 @@
 
   "page.home.title": "news",
   "page.home.description": "Aplicação de notícias",
+
+  "page.news.form.button.submit": "Postar mensagem",
 
   "page.home.button.add-channel": "Adicionar canal",
   "page.home.button.manage-users": "Gerenciar usuários",

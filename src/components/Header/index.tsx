@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import { LOCALE } from "locales";
 import { ChangeEvent } from "react";
+import Link from "next/link";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
@@ -35,18 +36,20 @@ const Header: React.VFC = () => {
       animate="mounted"
       exit="unMounted"
     >
-      <C.Text
-        as="h1"
-        fontSize={["1xl", "3xl"]}
-        fontWeight="bold"
-        w="256px"
-        letterSpacing="tight"
-      >
-        {formatMessage({ id: "page.home.title" })}
-        <C.Text as="span" ml="2px" color="yellow.400">
-          .
+      <Link href="/">
+        <C.Text
+          cursor="pointer"
+          as="h1"
+          fontSize={["1xl", "3xl"]}
+          fontWeight="bold"
+          letterSpacing="tight"
+        >
+          {formatMessage({ id: "page.home.title" })}
+          <C.Text as="span" ml="2px" color="yellow.400">
+            .
+          </C.Text>
         </C.Text>
-      </C.Text>
+      </Link>
       <C.Flex>
         <C.Select
           ml="12px"

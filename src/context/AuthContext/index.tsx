@@ -132,8 +132,6 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
       setAuthenticatedUser(decodedToken);
 
-      apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
-
       if (response.status === 200) {
         Router.push("/");
       }
@@ -166,7 +164,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   };
 
   useEffect(() => {
-    if (access_token && !authenticatedUser) {
+    if (access_token && !authenticatedUser.id) {
       const { id }: DecodedToken = decode(access_token);
       apiClient
         .get<AuthenticatedUser>(`/users/${id}`)

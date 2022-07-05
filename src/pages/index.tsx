@@ -1,19 +1,23 @@
-import { Layout } from "components";
+import { Layout, Loading } from "components";
 import { useIntl } from "react-intl";
 import * as C from "@chakra-ui/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { CONTAINER_ANIMATION } from "animations";
+import { CARDS_ANIMATION, TRANSITION } from "animations";
 import { ChannelCard, FilterHeader, Title } from "components";
 import { withSSRAuth } from "utils/auth/withSSRAuth";
 import { ROLES } from "@constants";
+import { useChannels } from "hooks/channel";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
 const Home: React.VFC = () => {
+  const toast = C.useToast();
   const { formatMessage } = useIntl();
   const [currentFilterOption, setCurrentFilterOption] = useState("all");
   const [inputValue, setInputValue] = useState("");
+
+  const { data, isLoading, isError } = useChannels();
 
   const filterOptions = [
     {
@@ -34,17 +38,91 @@ const Home: React.VFC = () => {
     },
   ];
 
-  const filterParams = {
-    searchTerm: inputValue,
-    option: currentFilterOption,
-  };
+  const channelsContent = useMemo(() => {
+    if (isLoading) {
+      return <Loading />;
+    }
+
+    if (isError) {
+      toast({
+        title: "Erro",
+        description: "Ocorreu um erro ao carregar os dados",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
+
+    return (
+      <>
+        {data.map((channel) => {
+          return (
+            <ChannelCard
+              key={channel.id}
+              id={channel.id}
+              messagesAmount={channel.messagesAmount}
+              title={channel.title}
+              description={channel.description}
+            />
+          );
+        })}
+      </>
+    );
+  }, [data, isLoading, isError, formatMessage]);
+
+  const topRankingContent = useMemo(() => {
+    const topRankingData = data
+      ? data.map((item) => item).sort((a, b) => b.likesAmount - a.likesAmount)
+      : [];
+
+    if (isLoading) {
+      return <Loading />;
+    }
+
+    if (isError || !topRankingData.length) {
+      toast({
+        title: "Erro",
+        description: "Ocorreu um erro ao carregar os dados",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+      });
+      return;
+    }
+
+    return (
+      <>
+        {topRankingData.map((channel) => {
+          return (
+            <ChannelCard
+              isRankingCard
+              messagesAmount={channel.messagesAmount}
+              likesAmount={channel.likesAmount}
+              key={channel.id}
+              id={channel.id}
+              title={channel.title}
+              description={channel.description}
+            />
+          );
+        })}
+      </>
+    );
+  }, [data, isLoading, isError, formatMessage]);
 
   return (
     <Layout
       title={formatMessage({ id: "page.home.title" })}
       description={formatMessage({ id: "page.home.description" })}
     >
-      <C.Flex
+      <MotionFlex
+        variants={CARDS_ANIMATION}
+        transition={TRANSITION}
+        initial="unMounted"
+        animate="mounted"
+        exit="unMounted"
         mb="32px"
         justify={["center", "flex-end"]}
         flexDirection={["column", "row"]}
@@ -69,16 +147,20 @@ const Home: React.VFC = () => {
         >
           {formatMessage({ id: "page.home.button.manage-users" })}
         </C.Button>
-      </C.Flex>
-      <MotionFlex
-        variants={CONTAINER_ANIMATION}
+      </MotionFlex>
+      <C.Flex
         sx={{
           "@media (max-width: 1160px)": {
             flexDirection: "column",
           },
         }}
       >
-        <C.Flex
+        <MotionFlex
+          variants={CARDS_ANIMATION}
+          transition={TRANSITION}
+          initial="unMounted"
+          animate="mounted"
+          exit="unMounted"
           flexDirection="column"
           sx={{
             "@media (max-width: 1160px)": {
@@ -97,18 +179,14 @@ const Home: React.VFC = () => {
             inputValue={inputValue}
             setInputValue={setInputValue}
           />
-          {[...Array(10)].map((item, index) => {
-            return (
-              <ChannelCard
-                key={index}
-                id="1"
-                title="Titulo teste"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend ornare interdum. Etiam dapibus vitae diam at lacin... Lorem ipsum dolor sit amet "
-              />
-            );
-          })}
-        </C.Flex>
-        <C.Flex
+          {channelsContent}
+        </MotionFlex>
+        <MotionFlex
+          variants={CARDS_ANIMATION}
+          transition={TRANSITION}
+          initial="unMounted"
+          animate="mounted"
+          exit="unMounted"
           flexDirection="column"
           sx={{
             "@media (max-width: 1160px)": {
@@ -118,20 +196,9 @@ const Home: React.VFC = () => {
           w="40%"
         >
           <Title title="Top ranking" />
-          {[...Array(10)].map((item, index) => {
-            return (
-              <ChannelCard
-                isRankingCard
-                rating={66}
-                key={index}
-                id="1"
-                title="Titulo teste"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend ornare interdum. Etiam dapibus vitae diam at lacin... Lorem ipsum dolor sit amet "
-              />
-            );
-          })}
-        </C.Flex>
-      </MotionFlex>
+          {topRankingContent}
+        </MotionFlex>
+      </C.Flex>
     </Layout>
   );
 };

@@ -7,7 +7,7 @@ import {
 } from "react-query";
 import { createChannel, getChannelById, getChannels } from "services";
 import { queryClient } from "services/queryClient";
-import { ChannelQueryParams, ChannelResponse } from "../../types";
+import { ChannelQueryParams, ChannelResponse, ChannelsResponse } from "types";
 
 export function useCreateChannel(): UseMutationResult {
   return useMutation(createChannel, {
@@ -17,8 +17,8 @@ export function useCreateChannel(): UseMutationResult {
   });
 }
 
-export function useChannels(): UseQueryResult<ChannelResponse[], string> {
-  return useQuery<ChannelResponse[], string>(
+export function useChannels(): UseQueryResult<ChannelsResponse[], string> {
+  return useQuery<ChannelsResponse[], string>(
     [CHANNEL_CONSTANTS.CHANNEL_CACHE, "channel"],
     () => getChannels()
   );

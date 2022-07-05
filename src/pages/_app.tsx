@@ -1,7 +1,7 @@
 import { AppProps } from "next/app";
 import { AppProvider } from "providers";
 
-import "keen-slider/keen-slider.min.css";
+import "react-quill/dist/quill.snow.css";
 
 if (process.env.NEXT_PUBLIC_MOCK === "true") {
   require("mocks/index");

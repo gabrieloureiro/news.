@@ -6,32 +6,29 @@ export type ChannelPayload = {
 
 export type ChannelQueryParams = {
   id: string;
+  userId: string;
 };
 
-export type LikeChannelQueryParams = {
-  channel_id: string;
-  user_id: string;
+export type Message = {
+  id: number;
+  message: string;
+  hasImage: boolean;
+  image_path: string | null;
+  likesAmount: number;
+  isLiked: boolean;
 };
 
 export type ChannelResponse = {
-  channel: {
-    id: string;
-    title: string;
-    description: string;
-    user_id: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  messages: [
-    {
-      id: string;
-      message: string;
-      hasImage: boolean;
-      image_path: string | null;
-      user_id: string;
-      channel_id: string;
-      createdAt: string;
-      updatedAt: string;
-    }
-  ];
+  id: number;
+  title: string;
+  description: string;
+  messages: Message[];
+};
+
+export type ChannelsResponse = {
+  id: string;
+  title: string;
+  description: string;
+  messagesAmount: number;
+  likesAmount: number;
 };

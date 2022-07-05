@@ -8,17 +8,17 @@ type ChannelCardProps = {
   title: string;
   description: string;
   messagesAmount?: number;
+  likesAmount?: number;
   isRankingCard?: boolean;
-  rating?: number;
 };
 
 const ChannelCard: React.FC<ChannelCardProps> = ({
   id,
   title,
   description,
-  messagesAmount = 0,
+  messagesAmount,
+  likesAmount,
   isRankingCard = false,
-  rating,
 }) => {
   const { push } = useRouter();
 
@@ -63,7 +63,7 @@ const ChannelCard: React.FC<ChannelCardProps> = ({
             color="yellow.400"
             fontWeight="600"
           >
-            {rating}
+            {likesAmount}
           </C.Text>
           <C.Icon as={AiFillStar} w="24px" h="24px" color="yellow.400" />
         </C.Flex>

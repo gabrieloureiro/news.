@@ -3,15 +3,8 @@ import {
   ChannelPayload,
   ChannelQueryParams,
   ChannelResponse,
-  LikeChannelQueryParams,
+  ChannelsResponse,
 } from "types";
-
-export async function likeChannel({
-  channel_id,
-  user_id,
-}: LikeChannelQueryParams): Promise<void> {
-  return apiClient.put(`channelUserLike/${channel_id}`, user_id);
-}
 
 export async function createChannel(params: ChannelPayload): Promise<void> {
   return apiClient.post("channel", params);
@@ -19,18 +12,17 @@ export async function createChannel(params: ChannelPayload): Promise<void> {
 
 export async function getChannelById({
   id,
+  userId,
 }: ChannelQueryParams): Promise<ChannelResponse> {
-  const { data } = await apiClient.get<ChannelResponse>(`channel/${id}`, {
-    params: {
-      id,
-    },
+  const { data } = await apiClient.get<ChannelResponse>(`/channel/${id}`, {
+    params: { userId },
   });
 
   return data;
 }
 
-export async function getChannels(): Promise<ChannelResponse[]> {
-  const { data } = await apiClient.get<ChannelResponse[]>("channel");
+export async function getChannels(): Promise<ChannelsResponse[]> {
+  const { data } = await apiClient.get<ChannelsResponse[]>("/channel");
 
   return data;
 }
