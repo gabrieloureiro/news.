@@ -333,7 +333,8 @@ const Channel = () => {
             )}
           </C.Flex>
           {messages.map((item) => {
-            const showDeleteMessageButton = currentUserMessages.includes(item);
+            const showDeleteMessageButton =
+              currentUserMessages.includes(item) || authenticatedUserIsAdmin;
             return (
               <AccordionMessage
                 key={item.id}
