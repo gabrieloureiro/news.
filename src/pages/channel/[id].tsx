@@ -10,6 +10,8 @@ import { motion } from "framer-motion";
 import { CARDS_ANIMATION, TRANSITION } from "animations";
 import dynamic from "next/dynamic";
 import { Message } from "types";
+import { withSSRAuth } from "utils/auth/withSSRAuth";
+import { ROLES } from "@constants";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
@@ -36,12 +38,12 @@ const Channel = () => {
 
   const isLoadingNews = (isLoading || isFetching) && !isFetched;
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     mutateCreateNews({
       payload: { message: currentMessage },
       params: { userId: authenticatedUser.id, channelId },
     });
-  };
+  }, [mutateCreateNews, currentMessage, authenticatedUser, channelId]);
 
   const handleLikeMessage = useCallback(
     (message: Message) => {
@@ -140,6 +142,35 @@ const Channel = () => {
               />
             );
           })}
+          <ReactQuill
+            style={{
+              backgroundColor: "white",
+              marginTop: "32px",
+              color: "black",
+            }}
+            theme="snow"
+            placeholder="Digite aqui sua mensagem..."
+            value={currentMessage}
+            onChange={setCurrentMessage}
+          />
+          <C.Button
+            ml="auto"
+            mt="32px"
+            variant="solid"
+            bg="yellow.400"
+            _hover={{
+              bg: "yellow.500",
+            }}
+            fontSize={["12px", "16px"]}
+            h={["auto", "56px"]}
+            p="12px"
+            type="submit"
+            isLoading={isLoadingMutateCreateNews}
+            disabled={isDisabled}
+            onClick={handleSubmit}
+          >
+            {formatMessage({ id: "page.news.form.button.submit" })}
+          </C.Button>
         </>
       )
     );
@@ -154,6 +185,11 @@ const Channel = () => {
     authenticatedUser,
     formatMessage,
     handleLikeMessage,
+    currentMessage,
+    setCurrentMessage,
+    isDisabled,
+    handleSubmit,
+    isLoadingMutateCreateNews,
   ]);
 
   return (
@@ -174,38 +210,20 @@ const Channel = () => {
         flexDirection="column"
       >
         {contentNews}
-        <ReactQuill
-          style={{
-            backgroundColor: "white",
-            marginTop: "32px",
-            color: "black",
-          }}
-          theme="snow"
-          placeholder="Digite aqui sua mensagem..."
-          value={currentMessage}
-          onChange={setCurrentMessage}
-        />
-        <C.Button
-          ml="auto"
-          mt="32px"
-          variant="solid"
-          bg="yellow.400"
-          _hover={{
-            bg: "yellow.500",
-          }}
-          fontSize={["12px", "16px"]}
-          h={["auto", "56px"]}
-          p="12px"
-          type="submit"
-          isLoading={isLoadingMutateCreateNews}
-          disabled={isDisabled}
-          onClick={handleSubmit}
-        >
-          {formatMessage({ id: "page.news.form.button.submit" })}
-        </C.Button>
       </MotionFlex>
     </Layout>
   );
 };
 
 export default Channel;
+
+export const getServerSideProps = withSSRAuth(
+  async () => {
+    return {
+      props: {},
+    };
+  },
+  {
+    roles: [ROLES.ADMIN, ROLES.CONSUMER, ROLES.CREATOR],
+  }
+);

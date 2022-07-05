@@ -10,6 +10,7 @@ import { ROLES } from "@constants";
 import { useChannels } from "hooks/channel";
 import { useRouter } from "next/router";
 import { useAuth } from "context";
+import { useCanAccess } from "utils/auth/use-can-access";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
@@ -21,6 +22,9 @@ const Home: React.VFC = () => {
   const [inputValue, setInputValue] = useState("");
   const { authenticatedUser } = useAuth();
   const { data, isLoading, isError } = useChannels();
+
+  const authenticatedUserIsAdmin = useCanAccess({ roles: [ROLES.ADMIN] });
+  const authenticatedUserIsCreator = useCanAccess({ roles: [ROLES.CREATOR] });
 
   const filterOptions = [
     {
@@ -137,28 +141,32 @@ const Home: React.VFC = () => {
           )}
         </C.Text>
         <C.Flex flexDirection={["column", "row"]}>
-          <C.Button
-            mr={["0", "12px"]}
-            mb={["12px", "0"]}
-            fontSize={["12px", "14px"]}
-            background="green.500"
-            _hover={{
-              background: "green.600",
-            }}
-            onClick={() => push("/channel/create")}
-          >
-            {formatMessage({ id: "page.home.button.add-channel" })}
-          </C.Button>
-          <C.Button
-            fontSize={["12px", "14px"]}
-            background="yellow.500"
-            _hover={{
-              background: "yellow.600",
-            }}
-            onClick={() => push("/requests")}
-          >
-            {formatMessage({ id: "page.home.button.manage-users" })}
-          </C.Button>
+          {authenticatedUserIsCreator && (
+            <C.Button
+              mr={["0", "12px"]}
+              mb={["12px", "0"]}
+              fontSize={["12px", "14px"]}
+              background="green.500"
+              _hover={{
+                background: "green.600",
+              }}
+              onClick={() => push("/channel/create")}
+            >
+              {formatMessage({ id: "page.home.button.add-channel" })}
+            </C.Button>
+          )}
+          {authenticatedUserIsAdmin && (
+            <C.Button
+              fontSize={["12px", "14px"]}
+              background="yellow.500"
+              _hover={{
+                background: "yellow.600",
+              }}
+              onClick={() => push("/requests")}
+            >
+              {formatMessage({ id: "page.home.button.manage-users" })}
+            </C.Button>
+          )}
         </C.Flex>
       </MotionFlex>
       <C.Flex

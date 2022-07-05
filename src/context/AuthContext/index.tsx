@@ -139,7 +139,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       }
     } catch (err) {
       toast({
-        title: err,
+        title: "Erro ao fazer login",
         status: "error",
         duration: 9000,
         isClosable: true,

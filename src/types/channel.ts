@@ -1,11 +1,10 @@
 export type ChannelPayload = {
   title: string;
   description: string;
-  user_id: string;
 };
 
 export type ChannelQueryParams = {
-  id: string;
+  id?: string;
   userId: string;
 };
 

@@ -9,6 +9,8 @@ import { MdExitToApp, MdNotificationImportant } from "react-icons/md";
 import { ChangeEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCanAccess } from "utils/auth/use-can-access";
+import { ROLES } from "@constants";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
@@ -17,6 +19,7 @@ const Header: React.VFC = () => {
   const { formatMessage } = useIntl();
   const { currentLocale, handleChangeLocale } = useLanguage();
   const { authenticatedUser, signOut } = useAuth();
+  const authenticatedUserIsConsumer = useCanAccess({ roles: [ROLES.CONSUMER] });
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
     handleChangeLocale(event.target.value);
@@ -54,10 +57,10 @@ const Header: React.VFC = () => {
       </Link>
       <C.Flex>
         <C.Select
-          ml="12px"
           color="white"
           icon={<BsGlobe color="white" />}
-          maxWidth={["40px", "155px"]}
+          maxWidth={["40px", "190px"]}
+          w="190px"
           cursor="pointer"
           value={currentLocale}
           onChange={(event) => onChange(event)}
@@ -80,13 +83,16 @@ const Header: React.VFC = () => {
             />
           </C.MenuButton>
           <C.MenuList>
-            <C.MenuItem
-              color="gray.600"
-              icon={<MdNotificationImportant size="16px" />}
-              onClick={() => push("/requests/create")}
-            >
-              {formatMessage({ id: "header.menu.item.create-request" })}
-            </C.MenuItem>
+            {authenticatedUserIsConsumer && (
+              <C.MenuItem
+                color="gray.600"
+                icon={<MdNotificationImportant size="16px" />}
+                onClick={() => push("/requests/create")}
+              >
+                {formatMessage({ id: "header.menu.item.create-request" })}
+              </C.MenuItem>
+            )}
+
             <C.MenuItem
               color="gray.600"
               icon={<MdExitToApp size="16px" />}

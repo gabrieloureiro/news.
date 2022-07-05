@@ -6,8 +6,16 @@ import {
   ChannelsResponse,
 } from "types";
 
-export async function createChannel(params: ChannelPayload): Promise<void> {
-  return apiClient.post("channel", params);
+export type CreateChannelParams = {
+  payload: ChannelPayload;
+  params: ChannelQueryParams;
+};
+
+export async function createChannel({
+  payload,
+  params,
+}: CreateChannelParams): Promise<void> {
+  return apiClient.post("/channel", payload, { params });
 }
 
 export async function getChannelById({

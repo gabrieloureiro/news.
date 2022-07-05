@@ -11,7 +11,7 @@ export function validateUserRoles({
 }: ValidateUserRolesParams) {
   if (roles?.length > 0) {
     const hasThisRole = roles.some((role) => {
-      return authenticatedUser.role.name === role;
+      return authenticatedUser.role?.name === role;
     });
 
     if (!hasThisRole) {

@@ -1,5 +1,4 @@
 import * as C from "@chakra-ui/react";
-import { useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useIntl } from "react-intl";
 
