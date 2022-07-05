@@ -15,6 +15,7 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
 const Channel = () => {
+  const [messages, setMessages] = useState<Message[]>([] as Message[]);
   const [currentMessage, setCurrentMessage] = useState("");
   const toast = C.useToast();
   const { query } = useRouter();
@@ -23,9 +24,9 @@ const Channel = () => {
   const { mutate: mutateCreateNews, isLoading: isLoadingMutateCreateNews } =
     useCreateNews();
   const { mutate: mutateNewsLike } = useUpdateNewsLikes();
+
   const isDisabled = currentMessage.replace(/(<([^>]+)>)/gi, "").length === 0;
   const channelId = query.id?.toString();
-  const [messages, setMessages] = useState<Message[]>([] as Message[]);
 
   const { data, isLoading, isError, isFetching, isFetched, isSuccess } =
     useChannel({
@@ -116,13 +117,25 @@ const Channel = () => {
       isSuccess &&
       data && (
         <>
-          <Title title={data.title} />
+          <C.Flex
+            align={["flex-start", "center"]}
+            flexDirection={["column", "row"]}
+          >
+            <Title title={data.title} />
+            <C.Text mb="24px" as="span" fontStyle="italic">
+              {formatMessage(
+                { id: "page.news.channel-owner.name" },
+                { name: data.channel_owner.name }
+              )}
+            </C.Text>
+          </C.Flex>
           {messages.map((item) => {
             return (
               <AccordionMessage
                 key={item.id}
                 isLiked={item.isLiked}
                 message={item.message}
+                messageOwner={item.message_owner.name}
                 handleLikeMessage={() => handleLikeMessage(item)}
               />
             );

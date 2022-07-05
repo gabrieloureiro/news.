@@ -1,22 +1,31 @@
 import * as C from "@chakra-ui/react";
 import { useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useIntl } from "react-intl";
 
 type AccordionMessageProps = {
   message: string;
   handleLikeMessage: () => void;
   isLiked: boolean;
+  messageOwner: string;
 };
 
 const AccordionMessage: React.FC<AccordionMessageProps> = ({
   message,
   handleLikeMessage,
   isLiked,
+  messageOwner,
 }) => {
-  const toast = C.useToast();
+  const { formatMessage } = useIntl();
   const LikesRow = () => {
     return (
-      <C.Flex justifyContent="flex-end" pt="16px">
+      <C.Flex justifyContent="space-between" align="flex-end" pt="16px">
+        <C.Text as="span" fontStyle="italic">
+          {formatMessage(
+            { id: "page.news.channel-owner.name" },
+            { name: messageOwner }
+          )}
+        </C.Text>
         <C.Button variant="ghost" onClick={handleLikeMessage}>
           <C.Icon
             as={AiFillStar}
@@ -50,11 +59,10 @@ const AccordionMessage: React.FC<AccordionMessageProps> = ({
                 <C.AccordionPanel
                   minW="100%"
                   fontSize={["12px", "16px"]}
-                  p="0"
                   textAlign="left"
                   dangerouslySetInnerHTML={{ __html: message }}
                 />
-                <C.AccordionIcon ml="auto" />
+                <C.AccordionIcon ml="auto" mr="16px" />
               </C.AccordionButton>
               <LikesRow />
             </>
@@ -74,7 +82,7 @@ const AccordionMessage: React.FC<AccordionMessageProps> = ({
                       .replace(/(<([^>]+)>)/gi, "")}...`,
                   }}
                 />
-                <C.AccordionIcon ml="auto" />
+                <C.AccordionIcon ml="auto" mr="16px" />
               </C.AccordionButton>
               <LikesRow />
             </>

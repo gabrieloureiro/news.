@@ -8,15 +8,18 @@ import { ChannelCard, FilterHeader, Title } from "components";
 import { withSSRAuth } from "utils/auth/withSSRAuth";
 import { ROLES } from "@constants";
 import { useChannels } from "hooks/channel";
+import { useRouter } from "next/router";
+import { useAuth } from "context";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
 const Home: React.VFC = () => {
+  const { push } = useRouter();
   const toast = C.useToast();
   const { formatMessage } = useIntl();
   const [currentFilterOption, setCurrentFilterOption] = useState("all");
   const [inputValue, setInputValue] = useState("");
-
+  const { authenticatedUser } = useAuth();
   const { data, isLoading, isError } = useChannels();
 
   const filterOptions = [
@@ -124,29 +127,39 @@ const Home: React.VFC = () => {
         animate="mounted"
         exit="unMounted"
         mb="32px"
-        justify={["center", "flex-end"]}
+        justify={["center", "space-between"]}
         flexDirection={["column", "row"]}
       >
-        <C.Button
-          mr={["0", "12px"]}
-          mb={["12px", "0"]}
-          fontSize={["12px", "14px"]}
-          background="green.500"
-          _hover={{
-            background: "green.600",
-          }}
-        >
-          {formatMessage({ id: "page.home.button.add-channel" })}
-        </C.Button>
-        <C.Button
-          fontSize={["12px", "14px"]}
-          background="yellow.500"
-          _hover={{
-            background: "yellow.600",
-          }}
-        >
-          {formatMessage({ id: "page.home.button.manage-users" })}
-        </C.Button>
+        <C.Text as="h1" mb="32px" fontSize={["18px", "24px"]} fontWeight="bold">
+          {formatMessage(
+            { id: "page.home.welcome" },
+            { name: authenticatedUser.name }
+          )}
+        </C.Text>
+        <C.Flex flexDirection={["column", "row"]}>
+          <C.Button
+            mr={["0", "12px"]}
+            mb={["12px", "0"]}
+            fontSize={["12px", "14px"]}
+            background="green.500"
+            _hover={{
+              background: "green.600",
+            }}
+            onClick={() => push("/channel/create")}
+          >
+            {formatMessage({ id: "page.home.button.add-channel" })}
+          </C.Button>
+          <C.Button
+            fontSize={["12px", "14px"]}
+            background="yellow.500"
+            _hover={{
+              background: "yellow.600",
+            }}
+            onClick={() => push("/requests")}
+          >
+            {formatMessage({ id: "page.home.button.manage-users" })}
+          </C.Button>
+        </C.Flex>
       </MotionFlex>
       <C.Flex
         sx={{

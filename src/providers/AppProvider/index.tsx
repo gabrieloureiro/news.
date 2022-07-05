@@ -6,9 +6,9 @@ export const AppProvider: React.FC = ({ children }) => {
     <LanguageProvider>
       <QueryClientProvider>
         <IntlProvider>
-          <AuthProvider>
-            <ChakraProvider>{children}</ChakraProvider>
-          </AuthProvider>
+          <ChakraProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </ChakraProvider>
         </IntlProvider>
       </QueryClientProvider>
     </LanguageProvider>

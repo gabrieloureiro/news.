@@ -14,6 +14,7 @@ import { useIntl } from "react-intl";
 import decode from "jwt-decode";
 import { Role } from "types";
 import { MAX_AGE } from "@constants";
+import * as C from "@chakra-ui/react";
 
 export type SignInCredentials = {
   email: string;
@@ -65,6 +66,7 @@ export function signOut(): void {
 
 function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const { access_token } = parseCookies();
+  const toast = C.useToast();
   const [authenticatedUser, setAuthenticatedUser] = useState<AuthenticatedUser>(
     {} as AuthenticatedUser
   );
@@ -136,7 +138,13 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         Router.push("/");
       }
     } catch (err) {
-      console.log(err);
+      toast({
+        title: err,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+      });
     }
   };
 
@@ -159,7 +167,13 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         Router.push("/login");
       }
     } catch (err) {
-      console.log(err);
+      toast({
+        title: err,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+      });
     }
   };
 

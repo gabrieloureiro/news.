@@ -1,6 +1,8 @@
 {
   "header.select.option.portuguese": "PT-BR",
   "header.select.option.english": "EN",
+  "header.menu.item.create-request": "Criar solicitação",
+  "header.menu.item.logout": "Sair",
 
   "loading": "Carregando...",
 
@@ -36,8 +38,10 @@
 
   "page.home.title": "news",
   "page.home.description": "Aplicação de notícias",
+  "page.home.welcome": "Bem vindo, {name}!",
 
   "page.news.form.button.submit": "Postar mensagem",
+  "page.news.channel-owner.name": "por {name}",
 
   "page.home.button.add-channel": "Adicionar canal",
   "page.home.button.manage-users": "Gerenciar usuários",

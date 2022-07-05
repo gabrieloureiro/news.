@@ -16,6 +16,10 @@ export type Message = {
   image_path: string | null;
   likesAmount: number;
   isLiked: boolean;
+  message_owner: {
+    id: number;
+    name: string;
+  };
 };
 
 export type ChannelResponse = {
@@ -23,6 +27,10 @@ export type ChannelResponse = {
   title: string;
   description: string;
   messages: Message[];
+  channel_owner: {
+    id: number;
+    name: string;
+  };
 };
 
 export type ChannelsResponse = {

@@ -1,20 +1,22 @@
 import * as C from "@chakra-ui/react";
 import { BsGlobe } from "react-icons/bs";
-import { RiLogoutBoxRFill } from "react-icons/ri";
 import { CARDS_ANIMATION, TRANSITION } from "animations";
 import { useAuth, useLanguage } from "context";
 import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import { LOCALE } from "locales";
+import { MdExitToApp, MdNotificationImportant } from "react-icons/md";
 import { ChangeEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const MotionFlex = motion<Omit<C.FlexProps, "transition">>(C.Flex);
 
 const Header: React.VFC = () => {
+  const { push } = useRouter();
   const { formatMessage } = useIntl();
   const { currentLocale, handleChangeLocale } = useLanguage();
-  const { signOut } = useAuth();
+  const { authenticatedUser, signOut } = useAuth();
 
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
     handleChangeLocale(event.target.value);
@@ -67,9 +69,33 @@ const Header: React.VFC = () => {
             {formatMessage({ id: "header.select.option.english" })}
           </option>
         </C.Select>
-        <C.Button variant="ghost" ml="12px" onClick={signOut}>
-          <C.Icon as={RiLogoutBoxRFill} w="16px" h="16px" color="red.400" />
-        </C.Button>
+        <C.Menu>
+          <C.MenuButton zIndex="999">
+            <C.Avatar
+              cursor="pointer"
+              w="32px"
+              h="32px"
+              ml="16px"
+              name={authenticatedUser.name}
+            />
+          </C.MenuButton>
+          <C.MenuList>
+            <C.MenuItem
+              color="gray.600"
+              icon={<MdNotificationImportant size="16px" />}
+              onClick={() => push("/requests/create")}
+            >
+              {formatMessage({ id: "header.menu.item.create-request" })}
+            </C.MenuItem>
+            <C.MenuItem
+              color="gray.600"
+              icon={<MdExitToApp size="16px" />}
+              onClick={signOut}
+            >
+              {formatMessage({ id: "header.menu.item.logout" })}
+            </C.MenuItem>
+          </C.MenuList>
+        </C.Menu>
       </C.Flex>
     </MotionFlex>
   );
