@@ -1,5 +1,6 @@
 import apiClient from "services/apiClient";
 import {
+  DeleteNewsQueryParams,
   NewsPayload,
   NewsQueryParams,
   UpdateLikesPayload,
@@ -16,6 +17,11 @@ export type UpdateLikesParams = {
   params: UpdateLikesQueryParams;
 };
 
+export type DeleteNewsParams = {
+  id: number;
+  params: DeleteNewsQueryParams;
+};
+
 export async function createNews({
   payload,
   params,
@@ -28,4 +34,11 @@ export async function updateNewsLikes({
   params,
 }: UpdateLikesParams): Promise<void> {
   return apiClient.put(`/news/${payload.id}`, payload, { params });
+}
+
+export async function deleteMessage({
+  id,
+  params,
+}: DeleteNewsParams): Promise<void> {
+  return apiClient.delete(`/news/${id}`, { params });
 }

@@ -22,7 +22,7 @@ export type SignInCredentials = {
 };
 
 export type AuthenticatedUser = {
-  id: string;
+  id: number;
   name: string;
   email: string;
   role: Role;

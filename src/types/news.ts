@@ -14,3 +14,7 @@ export type UpdateLikesPayload = {
 export type UpdateLikesQueryParams = {
   userId: string;
 };
+
+export type DeleteNewsQueryParams = {
+  userId: string;
+};

@@ -48,8 +48,13 @@
   "page.channel-create.form.error.required.description": "Descrição obrigatória",
   "page.channel-create.form.button.submit": "Criar",
 
-  "page.news.form.button.submit": "Postar mensagem",
+  "page.news.form.button.submit": "Enviar mensagem",
   "page.news.channel-owner.name": "por {name}",
+  "page.news.popover.title": "Confirmação",
+  "page.news.popover.content": "Você tem certeza que deseja excluir esse canal?",
+  "page.news.popover.content-message": "Você tem certeza que deseja excluir essa mensagem?",
+  "page.news.popover.button.cancel": "Cancelar",
+  "page.news.popover.button.confirm": "Excluir",
 
   "page.home.button.add-channel": "Adicionar canal",
   "page.home.button.manage-users": "Gerenciar usuários",

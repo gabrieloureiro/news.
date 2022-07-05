@@ -59,7 +59,7 @@ const Home: React.VFC = () => {
         isClosable: true,
         position: "top-right",
       });
-      return;
+      return <C.Text>Vazio</C.Text>;
     }
 
     return (
@@ -88,7 +88,7 @@ const Home: React.VFC = () => {
       return <Loading />;
     }
 
-    if (isError || !topRankingData.length) {
+    if (isError) {
       toast({
         title: "Erro",
         description: "Ocorreu um erro ao carregar os dados",
