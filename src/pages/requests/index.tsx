@@ -50,7 +50,7 @@ const Requests = () => {
         </>
       );
     }
-  }, [toast, isLoadingRequisitions, isError, isSuccess, data]);
+  }, [toast, isLoadingRequisitions, isError, isSuccess, data, formatMessage]);
 
   return (
     <Layout

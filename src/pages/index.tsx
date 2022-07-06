@@ -1,7 +1,7 @@
 import { Layout, Loading } from "components";
 import { useIntl } from "react-intl";
 import * as C from "@chakra-ui/react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { CARDS_ANIMATION, TRANSITION } from "animations";
 import { ChannelCard, FilterHeader, Title } from "components";
@@ -26,30 +26,36 @@ const Home: React.VFC = () => {
   const authenticatedUserIsAdmin = useCanAccess({ roles: [ROLES.ADMIN] });
   const authenticatedUserIsCreator = useCanAccess({ roles: [ROLES.CREATOR] });
 
-  const filterOptions = [
-    {
-      label: formatMessage({ id: "page.home.filter.option.all" }),
-      value: "",
-    },
-    {
-      label: formatMessage({ id: "page.home.filter.option.most-commented" }),
-      value: "most-commented",
-    },
-    {
-      label: formatMessage({ id: "page.home.filter.option.less-commented" }),
-      value: "less-commented",
-    },
-  ];
+  const filterOptions = useMemo(
+    () => [
+      {
+        label: formatMessage({ id: "page.home.filter.option.all" }),
+        value: "",
+      },
+      {
+        label: formatMessage({ id: "page.home.filter.option.most-commented" }),
+        value: "most-commented",
+      },
+      {
+        label: formatMessage({ id: "page.home.filter.option.less-commented" }),
+        value: "less-commented",
+      },
+    ],
+    [formatMessage]
+  );
 
-  const sortOptions = (a, b) => {
-    if (currentFilterOption === filterOptions[1].value) {
-      return b.messagesAmount - a.messagesAmount;
-    } else if (currentFilterOption === filterOptions[2].value) {
-      return a.messagesAmount - b.messagesAmount;
-    } else {
-      return;
-    }
-  };
+  const sortOptions = useCallback(
+    (a, b) => {
+      if (currentFilterOption === filterOptions[1].value) {
+        return b.messagesAmount - a.messagesAmount;
+      } else if (currentFilterOption === filterOptions[2].value) {
+        return a.messagesAmount - b.messagesAmount;
+      } else {
+        return;
+      }
+    },
+    [currentFilterOption, filterOptions]
+  );
 
   const channelsContent = useMemo(() => {
     const filteredChannels = data
@@ -97,7 +103,16 @@ const Home: React.VFC = () => {
           })}
       </>
     );
-  }, [sortOptions, searchTerm, data, isLoading, isError, formatMessage]);
+  }, [
+    sortOptions,
+    searchTerm,
+    data,
+    isLoading,
+    isError,
+    formatMessage,
+    isSuccess,
+    toast,
+  ]);
 
   const topRankingContent = useMemo(() => {
     const topRankingData = data
@@ -125,7 +140,7 @@ const Home: React.VFC = () => {
         })}
       </>
     );
-  }, [data, isLoading, formatMessage]);
+  }, [data, isLoading]);
 
   return (
     <Layout

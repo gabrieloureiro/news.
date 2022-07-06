@@ -88,7 +88,14 @@ const Channel = () => {
         },
       }
     );
-  }, [mutateCreateNews, currentMessage, authenticatedUser, channelId]);
+  }, [
+    mutateCreateNews,
+    currentMessage,
+    authenticatedUser,
+    channelId,
+    formatMessage,
+    toast,
+  ]);
 
   const handleDeleteChannel = useCallback(() => {
     mutateDeleteChannel(
@@ -121,13 +128,13 @@ const Channel = () => {
       }
     );
   }, [
-    mutateCreateNews,
-    currentMessage,
-    authenticatedUser,
+    toast,
+    userId,
+    mutateDeleteChannel,
+    formatMessage,
     channelId,
     push,
     onClose,
-    toast,
   ]);
 
   const handleDeleteMessage = useCallback(
@@ -164,7 +171,7 @@ const Channel = () => {
         }
       );
     },
-    [userId, toast, onClose]
+    [mutateDeleteMessage, userId, toast, formatMessage]
   );
 
   const handleLikeMessage = useCallback(
@@ -215,16 +222,16 @@ const Channel = () => {
         }
       );
     },
-    [mutateNewsLike, authenticatedUser, messages]
+    [toast, formatMessage, mutateNewsLike, authenticatedUser, messages]
   );
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
       inline: "nearest",
     });
-  };
+  }, [messagesEndRef]);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -360,17 +367,18 @@ const Channel = () => {
       )
     );
   }, [
+    authenticatedUserIsAdmin,
+    isLoadingDeleteMessage,
+    messages,
+    showDeleteChannelButton,
+    toast,
     isOpen,
     onClose,
     onOpen,
     data,
     isLoadingNews,
     isSuccess,
-    isFetching,
     isError,
-    mutateCreateNews,
-    channelId,
-    authenticatedUser,
     formatMessage,
     handleLikeMessage,
     handleDeleteChannel,

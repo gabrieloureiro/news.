@@ -74,7 +74,7 @@ const Header: React.VFC = () => {
         animate="mounted"
         exit="unMounted"
       >
-        <Link href="/">
+        <Link passHref href="/">
           <C.Text
             cursor="pointer"
             as="h1"
