@@ -78,7 +78,7 @@ const Channel = () => {
       {
         onSuccess: () => {
           toast({
-            title: "Mensagem enviada",
+            title: formatMessage({ id: "toast.message.create.success.title" }),
             status: "success",
             duration: 9000,
             isClosable: true,
@@ -99,7 +99,7 @@ const Channel = () => {
       {
         onSuccess: () => {
           toast({
-            title: "Canal deletado com sucesso",
+            title: formatMessage({ id: "toast.channel.delete.success.title" }),
             status: "success",
             duration: 9000,
             isClosable: true,
@@ -110,7 +110,7 @@ const Channel = () => {
         },
         onError: (e: Error) => {
           toast({
-            title: "Erro ao deletar o canal",
+            title: formatMessage({ id: "toast.channel.delete.error.title" }),
             description: e.message,
             status: "error",
             duration: 9000,
@@ -140,7 +140,9 @@ const Channel = () => {
         {
           onSuccess: () => {
             toast({
-              title: "Mensagem deletada com sucesso",
+              title: formatMessage({
+                id: "toast.message.delete.success.title",
+              }),
               status: "success",
               duration: 9000,
               isClosable: true,
@@ -149,7 +151,9 @@ const Channel = () => {
           },
           onError: (e: Error) => {
             toast({
-              title: "Erro ao deletar a mensagem",
+              title: formatMessage({
+                id: "toast.message.delete.error.title",
+              }),
               description: e.message,
               status: "error",
               duration: 9000,
@@ -188,7 +192,9 @@ const Channel = () => {
           onSuccess: () => {
             if (!currentMessage.isLiked) {
               toast({
-                title: "Mensagem curtida!",
+                title: formatMessage({
+                  id: "toast.message.like.success.title",
+                }),
                 status: "success",
                 duration: 9000,
                 isClosable: true,
@@ -196,7 +202,9 @@ const Channel = () => {
               });
             } else {
               toast({
-                title: "Mensagem descurtida!",
+                title: formatMessage({
+                  id: "toast.message.unlike.success.title",
+                }),
                 status: "warning",
                 duration: 9000,
                 isClosable: true,
@@ -237,8 +245,8 @@ const Channel = () => {
 
     if (isError) {
       toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao carregar os dados do canal ",
+        title: formatMessage({ id: "toast.news.error.title" }),
+        description: formatMessage({ id: "toast.news.error.description" }),
         status: "error",
         duration: 9000,
         isClosable: true,

@@ -4,6 +4,38 @@
   "header.menu.item.create-request": "Criar solicitação",
   "header.menu.item.logout": "Sair",
 
+  "modal.request.title": "Criar solicitação",
+  "modal.request.content": "Deseja criar uma nova solicitação para tornar-se criador de conteúdo?",
+  "modal.request.button.submit": "Confirmar",
+
+  "status.approved": "Aprovado",
+  "status.pending": "Pendente",
+  "status.refused": "Recusado",
+
+  "toast.login.success": "Bem-vindo ao News",
+  "toast.login.error": "Senha inválida.",
+  "toast.signup.success": "Cadastro realizado com sucesso",
+  "toast.signup.error": "Erro ao fazer cadastro",
+  "toast.channels.error.title": "Erro ao carregar canais",
+  "toast.channels.error.description": "Não foi possível carregar os canais. Tente novamente mais tarde.",
+  "toast.channel.create.success.title": "Canal {title} criado com sucesso",
+  "toast.channel.delete.success.title": "Canal deletado com sucesso",
+  "toast.channel.delete.error.title": "Erro ao deletar canal",
+  "toast.message.create.success.title": "Mensagem enviada com sucesso",
+  "toast.message.delete.success.title": "Mensagem deletada com sucesso",
+  "toast.message.delete.error.title": "Erro ao deletar mensagem",
+  "toast.message.like.success.title": "Mensagem curtida com sucesso",
+  "toast.message.unlike.success.title": "Mensagem descurtida com sucesso",
+  "toast.news.error.title": "Erro ao carregar notícias",
+  "toast.news.error.description": "Não foi possível carregar as notícias. Tente novamente mais tarde.",
+  "toast.request.create.success.title": "Solicitação criada com sucesso",
+  "toast.request.create.success.description": "Aguarde a aprovação do administrador.",
+  "toast.request.create.error.title": "Erro ao criar solicitação",
+  "toast.request.create.error.description": "O usuário já possui uma solicitação em andamento",
+  "toast.request.update.success.title": "Solicitação atualizada com sucesso",
+  "toast.request.update.success.description": "O usuário {username} foi {status}.",
+  "toast.request.error.title": "Erro ao carregar solicitações",
+
   "loading": "Carregando...",
 
   "filter.search.placeholder": "Buscar",
@@ -56,12 +88,15 @@
   "page.news.popover.button.cancel": "Cancelar",
   "page.news.popover.button.confirm": "Excluir",
 
+  "page.requisitions.title": "Solicitações",
+  "page.requisitions.description": "Acompanhe as solicitações que dos consumidores",
+  "page.requisitions.heading": "Solicitações para criar canais",
+
   "page.home.button.add-channel": "Adicionar canal",
-  "page.home.button.manage-users": "Gerenciar usuários",
+  "page.home.button.manage-users": "Gerenciar solicitações",
 
   "page.home.filter.title": "Lista de canais",
   "page.home.filter.option.all": "Todos",
-  "page.home.filter.option.subbed": "Inscritos",
   "page.home.filter.option.most-commented": "Mais comentados",
   "page.home.filter.option.less-commented": "Menos comentados"
 }

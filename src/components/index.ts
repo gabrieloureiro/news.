@@ -8,5 +8,6 @@ export { default as ChannelCard } from "./ChannelCard";
 export { default as FilterHeader } from "./FilterHeader";
 export { default as Title } from "./Title";
 export { default as AccordionMessage } from "./AccordionMessage";
+export { default as RequisitionsCard } from "./RequisitionsCard";
 
 export * from "./Input";

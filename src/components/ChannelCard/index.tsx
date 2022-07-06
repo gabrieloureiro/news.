@@ -34,6 +34,7 @@ const ChannelCard: React.FC<ChannelCardProps> = ({
       borderRadius="6px"
       p="16px"
       h="120px"
+      maxH="120px"
       mb="24px"
       transition="0.2s ease-in-out"
       _hover={{

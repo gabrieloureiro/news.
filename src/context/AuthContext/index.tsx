@@ -136,10 +136,17 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
       if (response.status === 200) {
         Router.push("/");
+        toast({
+          title: formatMessage({ id: "toast.login.success" }),
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "top-right",
+        });
       }
     } catch (err) {
       toast({
-        title: "Erro ao fazer login",
+        title: formatMessage({ id: "toast.login.error" }),
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -165,10 +172,17 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
           signOut();
         }
         Router.push("/login");
+        toast({
+          title: formatMessage({ id: "toast.signup.success" }),
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "top-right",
+        });
       }
     } catch (err) {
       toast({
-        title: err,
+        title: formatMessage({ id: "toast.signup.error" }),
         status: "error",
         duration: 9000,
         isClosable: true,

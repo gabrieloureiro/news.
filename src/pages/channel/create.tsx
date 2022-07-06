@@ -52,8 +52,10 @@ const CreateChannel = () => {
       {
         onSuccess: () => {
           toast({
-            title: `Canal ${title} criado!`,
-            description: "O canal foi criado com sucesso!",
+            title: formatMessage(
+              { id: "toast.channel.create.success.title" },
+              { title }
+            ),
             status: "success",
             duration: 9000,
             isClosable: true,

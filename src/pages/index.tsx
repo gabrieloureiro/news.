@@ -18,10 +18,10 @@ const Home: React.VFC = () => {
   const { push } = useRouter();
   const toast = C.useToast();
   const { formatMessage } = useIntl();
-  const [currentFilterOption, setCurrentFilterOption] = useState("all");
-  const [inputValue, setInputValue] = useState("");
+  const [currentFilterOption, setCurrentFilterOption] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const { authenticatedUser } = useAuth();
-  const { data, isLoading, isError } = useChannels();
+  const { data, isLoading, isError, isSuccess } = useChannels();
 
   const authenticatedUserIsAdmin = useCanAccess({ roles: [ROLES.ADMIN] });
   const authenticatedUserIsCreator = useCanAccess({ roles: [ROLES.CREATOR] });
@@ -29,11 +29,7 @@ const Home: React.VFC = () => {
   const filterOptions = [
     {
       label: formatMessage({ id: "page.home.filter.option.all" }),
-      value: "all",
-    },
-    {
-      label: formatMessage({ id: "page.home.filter.option.subbed" }),
-      value: "subbed",
+      value: "",
     },
     {
       label: formatMessage({ id: "page.home.filter.option.most-commented" }),
@@ -45,44 +41,29 @@ const Home: React.VFC = () => {
     },
   ];
 
+  const sortOptions = (a, b) => {
+    if (currentFilterOption === filterOptions[1].value) {
+      return b.messagesAmount - a.messagesAmount;
+    } else if (currentFilterOption === filterOptions[2].value) {
+      return a.messagesAmount - b.messagesAmount;
+    } else {
+      return;
+    }
+  };
+
   const channelsContent = useMemo(() => {
-    if (isLoading) {
-      return <Loading />;
-    }
-
-    if (isError) {
-      toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao carregar os dados",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top-right",
-      });
-      return <C.Text>Vazio</C.Text>;
-    }
-
-    return (
-      <>
-        {data.map((channel) => {
-          return (
-            <ChannelCard
-              key={channel.id}
-              id={channel.id}
-              messagesAmount={channel.messagesAmount}
-              title={channel.title}
-              description={channel.description}
-            />
-          );
-        })}
-      </>
-    );
-  }, [data, isLoading, isError, formatMessage]);
-
-  const topRankingContent = useMemo(() => {
-    const topRankingData = data
-      ? data.map((item) => item).sort((a, b) => b.likesAmount - a.likesAmount)
-      : [];
+    const filteredChannels = data
+      ?.filter((channel) => {
+        if (searchTerm === "") {
+          return channel;
+        } else if (
+          channel.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+          return channel;
+        }
+      })
+      .map((channel) => channel)
+      .sort(sortOptions);
 
     if (isLoading) {
       return <Loading />;
@@ -90,14 +71,41 @@ const Home: React.VFC = () => {
 
     if (isError) {
       toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao carregar os dados",
+        title: formatMessage({ id: "toast.channels.error.title" }),
+        description: formatMessage({ id: "toast.channels.error.description" }),
         status: "error",
         duration: 9000,
         isClosable: true,
         position: "top-right",
       });
       return;
+    }
+
+    return (
+      <>
+        {isSuccess &&
+          filteredChannels.map((channel) => {
+            return (
+              <ChannelCard
+                key={channel.id}
+                id={channel.id}
+                messagesAmount={channel.messagesAmount}
+                title={channel.title}
+                description={channel.description}
+              />
+            );
+          })}
+      </>
+    );
+  }, [sortOptions, searchTerm, data, isLoading, isError, formatMessage]);
+
+  const topRankingContent = useMemo(() => {
+    const topRankingData = data
+      ?.map((item) => item)
+      .sort((a, b) => b.likesAmount - a.likesAmount);
+
+    if (isLoading) {
+      return <Loading />;
     }
 
     return (
@@ -117,7 +125,7 @@ const Home: React.VFC = () => {
         })}
       </>
     );
-  }, [data, isLoading, isError, formatMessage]);
+  }, [data, isLoading, formatMessage]);
 
   return (
     <Layout
@@ -197,8 +205,8 @@ const Home: React.VFC = () => {
             options={filterOptions}
             currentFilterOption={currentFilterOption}
             setCurrentFilterOption={setCurrentFilterOption}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
+            inputValue={searchTerm}
+            setInputValue={setSearchTerm}
           />
           {channelsContent}
         </MotionFlex>
