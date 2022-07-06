@@ -134,6 +134,8 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
       setAuthenticatedUser(decodedToken);
 
+      apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+
       if (response.status === 200) {
         Router.push("/");
         toast({
